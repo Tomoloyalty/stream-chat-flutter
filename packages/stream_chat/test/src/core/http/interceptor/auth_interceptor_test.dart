@@ -88,7 +88,7 @@ void main() {
       requestOptions: options,
       data: errorResponse.toJson(),
     );
-    final err = DioError(requestOptions: options, response: response);
+    final err = DioException(requestOptions: options, response: response);
     final handler = ErrorInterceptorHandler();
 
     when(() => tokenManager.isStatic).thenReturn(false);
@@ -158,7 +158,7 @@ void main() {
         requestOptions: options,
         data: errorResponse.toJson(),
       );
-      final err = DioError(requestOptions: options, response: response);
+      final err = DioException(requestOptions: options, response: response);
       final handler = ErrorInterceptorHandler();
 
       when(() => tokenManager.isStatic).thenReturn(false);
@@ -188,7 +188,7 @@ void main() {
       } catch (e) {
         // need to cast it as the type is private in dio
         final error = (e as dynamic).data;
-        expect(error, isA<DioError>());
+        expect(error, isA<DioException>());
       }
 
       verify(() => tokenManager.isStatic).called(1);
@@ -225,7 +225,7 @@ void main() {
         requestOptions: options,
         data: errorResponse.toJson(),
       );
-      final err = DioError(requestOptions: options, response: response);
+      final err = DioException(requestOptions: options, response: response);
       final handler = ErrorInterceptorHandler();
 
       when(() => tokenManager.isStatic).thenReturn(true);
@@ -237,8 +237,8 @@ void main() {
       } catch (e) {
         // need to cast it as the type is private in dio
         final error = (e as dynamic).data;
-        expect(error, isA<DioError>());
-        final response = StreamChatNetworkError.fromDioError(error);
+        expect(error, isA<DioException>());
+        final response = StreamChatNetworkError.fromDioException(error);
         expect(response.errorCode, code);
       }
 
@@ -253,7 +253,7 @@ void main() {
       const path = 'test-request-path';
       final options = RequestOptions(path: path);
       final response = Response(requestOptions: options);
-      final err = DioError(requestOptions: options, response: response);
+      final err = DioException(requestOptions: options, response: response);
       final handler = ErrorInterceptorHandler();
 
       authInterceptor.onError(err, handler);
@@ -263,7 +263,7 @@ void main() {
       } catch (e) {
         // need to cast it as the type is private in dio
         final error = (e as dynamic).data;
-        expect(error, isA<DioError>());
+        expect(error, isA<DioException>());
       }
     },
   );

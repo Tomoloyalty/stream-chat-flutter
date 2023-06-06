@@ -87,8 +87,13 @@ class StreamChatNetworkError extends StreamChatError {
   }) : super(message);
 
   ///
-  factory StreamChatNetworkError.fromDioError(DioError error) {
-    final response = error.response;
+  @Deprecated('Use `StreamChatNetworkError.fromDioException` instead')
+  factory StreamChatNetworkError.fromDioError(DioException error) =
+      StreamChatNetworkError.fromDioException;
+
+  ///
+  factory StreamChatNetworkError.fromDioException(DioException exception) {
+    final response = exception.response;
     ErrorResponse? errorResponse;
     final data = response?.data;
     if (data != null) {
@@ -96,11 +101,13 @@ class StreamChatNetworkError extends StreamChatError {
     }
     return StreamChatNetworkError.raw(
       code: errorResponse?.code ?? -1,
-      message:
-          errorResponse?.message ?? response?.statusMessage ?? error.message,
+      message: errorResponse?.message ??
+          response?.statusMessage ??
+          exception.message ??
+          '',
       statusCode: errorResponse?.statusCode ?? response?.statusCode,
       data: errorResponse,
-    )..stackTrace = error.stackTrace;
+    )..stackTrace = exception.stackTrace;
   }
 
   /// Error code

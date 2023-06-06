@@ -1,10 +1,17 @@
 library stream_chat;
 
 export 'package:async/async.dart';
-export 'package:dio/src/dio_error.dart';
-export 'package:dio/src/multipart_file.dart';
-export 'package:dio/src/options.dart';
-export 'package:dio/src/options.dart' show ProgressCallback;
+export 'package:dio/dio.dart'
+    show
+        DioException,
+        DioExceptionType,
+        RequestOptions,
+        CancelToken,
+        Interceptor,
+        InterceptorsWrapper,
+        MultipartFile,
+        Options,
+        ProgressCallback;
 export 'package:logging/logging.dart' show Logger, Level, LogRecord;
 export 'package:rate_limiter/rate_limiter.dart';
 export 'package:uuid/uuid.dart';
