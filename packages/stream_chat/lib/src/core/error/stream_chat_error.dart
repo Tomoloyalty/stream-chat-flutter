@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:stream_chat/stream_chat.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -97,7 +99,7 @@ class StreamChatNetworkError extends StreamChatError {
     ErrorResponse? errorResponse;
     final data = response?.data;
     if (data != null) {
-      errorResponse = ErrorResponse.fromJson(data);
+      errorResponse = ErrorResponse.fromJson(json.decode(data));
     }
     return StreamChatNetworkError.raw(
       code: errorResponse?.code ?? -1,
