@@ -283,7 +283,7 @@ class _StreamAttachmentPickerState extends State<StreamAttachmentPicker> {
                       ),
                     const Spacer(),
                     FutureBuilder(
-                      future: PhotoManager.requestPermissionExtend(),
+                      future: Future.value(PermissionState.denied),
                       builder: (context, snapshot) {
                         if (snapshot.hasData &&
                             snapshot.data == PermissionState.limited) {
@@ -456,7 +456,7 @@ class _PickerWidgetState extends State<_PickerWidget> {
   @override
   void initState() {
     super.initState();
-    requestPermission = PhotoManager.requestPermissionExtend();
+    requestPermission = Future.value(PermissionState.denied);
   }
 
   @override
