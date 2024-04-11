@@ -108,7 +108,7 @@ class StreamChatCoreState extends State<StreamChatCore>
   /// The current user as a stream
   Stream<User?> get currentUserStream => client.state.currentUserStream;
 
-  StreamSubscription<ConnectivityResult>? _connectivitySubscription;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
   var _isInForeground = true;
   var _isConnectionAvailable = true;
