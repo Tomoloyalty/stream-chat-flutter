@@ -65,7 +65,7 @@ class StreamChatCore extends StatefulWidget {
   /// Stream of connectivity result
   /// Visible for testing
   @visibleForTesting
-  final Stream<ConnectivityResult>? connectivityStream;
+  final Stream<List<ConnectivityResult>>? connectivityStream;
 
   @override
   StreamChatCoreState createState() => StreamChatCoreState();
@@ -121,13 +121,13 @@ class StreamChatCoreState extends State<StreamChatCore>
   }
 
   void _subscribeToConnectivityChange([
-    Stream<ConnectivityResult>? connectivityStream,
+    Stream<List<ConnectivityResult>>? connectivityStream,
   ]) {
     if (_connectivitySubscription == null) {
       connectivityStream ??= Connectivity().onConnectivityChanged;
       _connectivitySubscription =
           connectivityStream.distinct().listen((result) {
-        _isConnectionAvailable = result != ConnectivityResult.none;
+        _isConnectionAvailable = result.contains(ConnectivityResult.none);
         if (!_isInForeground) return;
         if (_isConnectionAvailable) {
           if (client.wsConnectionStatus == ConnectionStatus.disconnected &&
